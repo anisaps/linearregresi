@@ -1,15 +1,10 @@
 import csv
 import streamlit as st
 import pandas as pd
-import matplotlib.pyplot as plt
-import seaborn as sns
 import os
-from PIL import Image
 
 st.title('Regresi Linear dan Kolerasi Pearson')
 st.subheader('created by : 152017114 Anisa Putri Setyaningrum')
-
-dataset = 'data.csv'
 
 
 @st.cache(persist=True)
@@ -82,7 +77,7 @@ def main(filepath):
 
 try:
     data_file = st.file_uploader("Upload CSV", type=['csv'])
-    data = exploredata(dataset)
+    data = exploredata(data_file.name)
     xa = main(data_file.name)
     st.write("Data yang digunakan")
     st.write(data)
