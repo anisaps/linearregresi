@@ -41,6 +41,7 @@ def main(filepath):
 
     SigmaXKuadrat = totalX**2
     print("(Sigma X)^2:: " + str(SigmaXKuadrat))
+
     SigmaYKuadrat = totalY**2
     print("(Sigma X)^2:: " + str(SigmaYKuadrat))
 
@@ -48,12 +49,16 @@ def main(filepath):
     print("n :: " + str(n))
 
     a = round((totalY*SigmaX2 - totalX * SigmaXY) /
-              (n*SigmaX2 - SigmaXKuadrat), 3)
-    b = round((n*SigmaXY - totalX*totalY)/(n*totalX - SigmaXKuadrat), 3)
+              (n*SigmaX2 - SigmaXKuadrat), 5)
+    b = round((n*SigmaXY - totalX*totalY)/(n*totalX - SigmaXKuadrat), 5)
 
-    r = round(((n*SigmaXY - totalX*totalY)) / ((n*SigmaXKuadrat -
-                                                n*SigmaYKuadrat)*(n*SigmaY2 - SigmaYKuadrat)**0.5), 4)
-    rxy2 = round(((r**2) * 100), 5)
+    r = round(((n*SigmaXY - totalX*totalY)) / ((n*SigmaX2 -
+                                                SigmaXKuadrat)*(n*SigmaY2 - SigmaYKuadrat))**0.5, 5)
+    kd = round(((r**2) * 100), 5)
+    varlain = 100 - kd
+
+    interpretasikd = ("Besar kontribusi variabel X terhadap Y adalah " + str(kd) + " %" +
+                      " dan sisanya yaitu sebesar " + str(varlain) + " %"+" dipengaruhi oleh variabel selain Y")
 
     if(b < 0):
         hasil = ("Y = " + str(a) + " - " + str(-b) + " X")
@@ -61,17 +66,24 @@ def main(filepath):
         hasil = ("Y = " + str(a) + " + " + str(b) + " X")
 
     if((r >= 0) or (r < 0.2)):
-        r2 = ("Sangat Lemah")
+        r2 = ("Kekuatan hubungan (r) : Sangat Lemah")
     elif((r >= 0.2) or (r < 0.4)):
-        r2 = ("Lemah")
+        r2 = ("Kekuatan hubungan (r) : Lemah")
     elif((r >= 0.4) or (r < 0.6)):
-        r2 = ("Sedang")
+        r2 = ("Kekuatan hubungan (r) : Sedang")
     elif((r >= 0.6) or (r < 0.8)):
-        r2 = ("Kuat")
+        r2 = ("Kekuatan hubungan (r) : Kuat")
     elif((r >= 0.8) or (r <= 1)):
-        r2 = ("Sangat Kuat")
+        r2 = ("Kekuatan hubungan (r) : Sangat Kuat")
 
-    values = a, b, totalX, totalY, SigmaX2, SigmaXKuadrat, SigmaXY, SigmaY2, n, hasil, SigmaYKuadrat, r, rxy2, r2
+    if(r < 0):
+        intrepretasikor = (
+            "Nilai korelasi tersebut adalah negatif yang menyatakan bahwa perbandingannya adalah terbalik")
+    else:
+        intrepretasikor = (
+            "Nilai korelasi tersebut adalah positif yang menyatakan bahwa perbandingannya adalah searah")
+
+    values = a, b, totalX, totalY, SigmaX2, SigmaXKuadrat, SigmaXY, SigmaY2, n, hasil, SigmaYKuadrat, r, kd, r2, intrepretasikor, interpretasikd
     return values
 
 
@@ -109,13 +121,14 @@ try:
     if(st.checkbox("Y = a + bx")):
         st.success(xa[9])
 
-    st.write("Nilai Korelasi Pearson")
+    st.write("Nilai Korelasi")
     if(st.checkbox("r")):
         st.success(xa[11])
-    if(st.checkbox("koefisien determinasi")):
+        st.write(xa[14])
+        st.write(xa[13])
+    if(st.checkbox("Koefisien Determinasi")):
         st.success(xa[12])
-    if(st.checkbox("Kekuatan klasifikasi utama (Skala Guilford)")):
-        st.success(xa[13])
+        st.write(xa[15])
 
 except:
     st.write("Silahkan Pilih terlebih dahulu file data yang akan digunakan !")
