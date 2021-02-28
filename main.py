@@ -65,15 +65,15 @@ def main(filepath):
     else:
         hasil = ("Y = " + str(a) + " + " + str(b) + " X")
 
-    if((r >= 0) or (r < 0.2)):
+    if((r >= 0) and (r < 0.2)):
         r2 = ("Kekuatan hubungan (r) : Sangat Lemah")
-    elif((r >= 0.2) or (r < 0.4)):
+    elif((r >= 0.2) and (r < 0.4)):
         r2 = ("Kekuatan hubungan (r) : Lemah")
-    elif((r >= 0.4) or (r < 0.6)):
+    elif((r >= 0.4) and (r < 0.6)):
         r2 = ("Kekuatan hubungan (r) : Sedang")
-    elif((r >= 0.6) or (r < 0.8)):
+    elif((r >= 0.6) and (r < 0.8)):
         r2 = ("Kekuatan hubungan (r) : Kuat")
-    elif((r >= 0.8) or (r <= 1)):
+    elif((r >= 0.8) and (r <= 1)):
         r2 = ("Kekuatan hubungan (r) : Sangat Kuat")
 
     if(r < 0):
